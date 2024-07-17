@@ -15,6 +15,7 @@
 		23F8FDAA2C46687100E235BC /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 23F8FDA92C46687100E235BC /* Base */; };
 		23F8FDB32C466BDE00E235BC /* PhoneBook+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8FDB12C466BDD00E235BC /* PhoneBook+CoreDataClass.swift */; };
 		23F8FDB42C466BDE00E235BC /* PhoneBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8FDB22C466BDD00E235BC /* PhoneBook+CoreDataProperties.swift */; };
+		23F8FDB62C46A48400E235BC /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8FDB52C46A48400E235BC /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		23F8FDAB2C46687100E235BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		23F8FDB12C466BDD00E235BC /* PhoneBook+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneBook+CoreDataClass.swift"; sourceTree = "<group>"; };
 		23F8FDB22C466BDD00E235BC /* PhoneBook+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		23F8FDB52C46A48400E235BC /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				23F8FD9D2C46687000E235BC /* AppDelegate.swift */,
 				23F8FD9F2C46687000E235BC /* SceneDelegate.swift */,
 				23F8FDA12C46687000E235BC /* ViewController.swift */,
+				23F8FDB52C46A48400E235BC /* TableViewCell.swift */,
 				23F8FDA62C46687100E235BC /* Assets.xcassets */,
 				23F8FDA82C46687100E235BC /* LaunchScreen.storyboard */,
 				23F8FDAB2C46687100E235BC /* Info.plist */,
@@ -148,6 +151,7 @@
 				23F8FD9E2C46687000E235BC /* AppDelegate.swift in Sources */,
 				23F8FDB32C466BDE00E235BC /* PhoneBook+CoreDataClass.swift in Sources */,
 				23F8FDB42C466BDE00E235BC /* PhoneBook+CoreDataProperties.swift in Sources */,
+				23F8FDB62C46A48400E235BC /* TableViewCell.swift in Sources */,
 				23F8FDA02C46687000E235BC /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
