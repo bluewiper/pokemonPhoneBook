@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         button.setTitle("추가", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.setTitleColor(.gray, for: .normal)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -62,7 +63,7 @@ class ViewController: UIViewController {
             
             // title Label 레이아웃
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
             // addButton 레이아웃
             addButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
@@ -82,6 +83,15 @@ class ViewController: UIViewController {
     func setTableViewDelegate() {
         contactTableView.delegate = self
         contactTableView.dataSource = self
+    }
+    
+    @objc func addButtonTapped() {
+        
+        let phoneBookViewController = PhoneBookViewController()
+        
+        // 버튼을 눌렀을 때 PhoneBookViewController로 넘어갈 수 있게 하는 코드
+        navigationController?.pushViewController(phoneBookViewController, animated: true)
+        
     }
     
     

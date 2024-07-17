@@ -1,0 +1,73 @@
+//
+//  SecondViewController.swift
+//  pokemonContactApp
+//
+//  Created by 단예진 on 7/17/24.
+//
+
+// Lv.2
+// 메인화면에서 “추가”버튼을 누르면 이 페이지로 이동하도록 합니다. `UINavigationController.push` 사용
+// 연락처를 편집하거나 새롭게 추가할 페이지를 개발합니다. (`PhoneBookViewController.swift`)
+// 프로필 이미지: `UIImageView`
+// 랜덤 이미지 생성 버튼: `UIButton`
+// 이름: `UITextView`
+// 전화번호: `UITextView`
+
+#Preview {
+    PhoneBookViewController()
+}
+
+import UIKit
+
+// 연락처 추가 화면
+class PhoneBookViewController: UIViewController {
+    
+    // UI 요소 세팅: 연락처 추가 타이틀 라벨
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "연락처 추가"
+        label.font = .boldSystemFont(ofSize: 22)
+        label.textColor = .black
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    // UI 요소 세팅: 적용 버튼
+    private lazy var comfirmButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("적용", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // 배경화면
+        view.backgroundColor = .white
+        
+        // 뷰 추가
+        [titleLabel, comfirmButton].forEach { view.addSubview($0) }
+        
+        configureUI()
+    }
+    
+    private func configureUI() {
+        
+        // UI 요소 레이아웃
+        NSLayoutConstraint.activate([
+            
+            // title Label 레이아웃
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            
+            // addButton 레이아웃
+            comfirmButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            comfirmButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            comfirmButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+        ])
+    }
+}
