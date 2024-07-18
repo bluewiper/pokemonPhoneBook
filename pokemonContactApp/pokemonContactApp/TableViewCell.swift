@@ -44,6 +44,8 @@ class TableViewCell: UITableViewCell {
         // 이미지뷰 UI 속성
         profileImageView.image = UIImage(systemName: "circle.fill")
         profileImageView.tintColor = .clear 
+        profileImageView.contentMode = .scaleAspectFit
+        profileImageView.clipsToBounds = true
         
         // 이미지뷰 UI 속성 디테일
         profileImageView.layer.cornerRadius = 30 // Half of width or height to make it circular
