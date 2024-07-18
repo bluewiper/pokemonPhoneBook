@@ -10,12 +10,15 @@
 }
 
 import UIKit
+import Alamofire
 
 class PhoneBookViewController: UIViewController {
     
     // UI 요소 세팅: 프로필 이미지
     private var profileImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true // 선밖으로 나가지 않도록 제한
         imageView.layer.cornerRadius = 90
         imageView.layer.borderColor = UIColor.gray.cgColor
         imageView.layer.borderWidth = 2.0
@@ -24,11 +27,12 @@ class PhoneBookViewController: UIViewController {
     }()
     
     // UI 요소 세팅: 랜덤 이미지 버튼
-    private var randomButton: UIButton = {
+    private lazy var randomButton: UIButton = {
         let button = UIButton()
         button.setTitle("랜덤 이미지 생성", for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(randomButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
        return button
     }()
@@ -36,6 +40,7 @@ class PhoneBookViewController: UIViewController {
     // UI 요소 세팅: 이름 텍스트뷰 생성
     private var nameTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.systemFont(ofSize: 16)
         textView.layer.cornerRadius = 10
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.layer.borderWidth = 2.0
@@ -79,6 +84,47 @@ class PhoneBookViewController: UIViewController {
 
     }
     
+    @objc private func randomButtonTapped() {
+           fetchPokemonData()
+       }
+       
+    private func fetchPokemonData() {
+            let randomID = Int.random(in: 1...1000)  // 포켓몬 ID 범위는 1부터 1000까지
+            
+            AF.request("https://pokeapi.co/api/v2/pokemon/\(randomID)").responseDecodable(of: PokemonImageAPI.self) { response in
+                switch response.result {
+                case .success(let pokemonData):
+                    let imageUrlString = pokemonData.sprites.frontDefault
+                    guard let imageUrl = URL(string: imageUrlString) else {
+                        print("Invalid image URL")
+                        return
+                    }
+                    self.loadImage(from: imageUrl)
+                    
+                case .failure(let error):
+                    print("Error fetching pokemon data: \(error)")
+                }
+            }
+        }
+        
+        private func loadImage(from url: URL) {
+            AF.request(url).responseData { response in
+                switch response.result {
+                case .success(let imageData):
+                    if let image = UIImage(data: imageData) {
+                        DispatchQueue.main.async {
+                            self.profileImageView.image = image
+                        }
+                    } else {
+                        print("Invalid image data")
+                    }
+                    
+                case .failure(let error):
+                    print("Error loading image: \(error)")
+                }
+            }
+        }
+    
     private func configureUI() {
         
         // UI 요소 레이아웃
@@ -109,8 +155,11 @@ class PhoneBookViewController: UIViewController {
         ])
         
     }
+    
     @objc private func applyButtonTapped() {
         
+        // 적용버튼 누를 시 홈화면으로 이동
+        navigationController?.popToRootViewController(animated: true)
     }
 
 }
