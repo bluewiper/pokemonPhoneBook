@@ -10,11 +10,12 @@
 }
 
 import UIKit
+import CoreData
 
 class TableViewCell: UITableViewCell {
     
     // UI 요소 정의
-    let contactImageView = UIImageView()
+    let profileImageView = UIImageView()
     let nameLabel = UILabel()
     let phoneNumberLabel = UILabel()
     
@@ -32,7 +33,7 @@ class TableViewCell: UITableViewCell {
     private func setupViews() {
         
         // 오토레이아웃 비활성화
-        contactImageView.translatesAutoresizingMaskIntoConstraints = false
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         phoneNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -41,20 +42,20 @@ class TableViewCell: UITableViewCell {
         nameLabel.textColor = .black
         
         // 이미지뷰 UI 속성
-        contactImageView.image = UIImage(systemName: "circle.fill")
-        contactImageView.tintColor = .clear 
+        profileImageView.image = UIImage(systemName: "circle.fill")
+        profileImageView.tintColor = .clear 
         
         // 이미지뷰 UI 속성 디테일
-        contactImageView.layer.cornerRadius = 30 // Half of width or height to make it circular
-        contactImageView.layer.borderWidth = 2.0
-        contactImageView.layer.borderColor = UIColor.gray.cgColor
+        profileImageView.layer.cornerRadius = 30 // Half of width or height to make it circular
+        profileImageView.layer.borderWidth = 2.0
+        profileImageView.layer.borderColor = UIColor.gray.cgColor
         
         // 전화번호 라벨 UI 속성
         phoneNumberLabel.font = .systemFont(ofSize: 16)
         phoneNumberLabel.textColor = .gray
         
         // 셀에 추가
-        contentView.addSubview(contactImageView)
+        contentView.addSubview(profileImageView)
         contentView.addSubview(nameLabel)
         contentView.addSubview(phoneNumberLabel)
     }
@@ -63,20 +64,21 @@ class TableViewCell: UITableViewCell {
         
         // 셀에 들어간 UI 제약 설정
         NSLayoutConstraint.activate([
-            contactImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
-            contactImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            contactImageView.widthAnchor.constraint(equalToConstant: 60),
-            contactImageView.heightAnchor.constraint(equalToConstant: 60),
+            profileImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            profileImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            profileImageView.widthAnchor.constraint(equalToConstant: 60),
+            profileImageView.heightAnchor.constraint(equalToConstant: 60),
             
-            nameLabel.leadingAnchor.constraint(equalTo: contactImageView.trailingAnchor, constant: 15),
+            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 15),
             nameLabel.trailingAnchor.constraint(lessThanOrEqualTo: phoneNumberLabel.leadingAnchor, constant: -15),
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             phoneNumberLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             phoneNumberLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
-        
-        
+ 
     }
     
 }
+
+

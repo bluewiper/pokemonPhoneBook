@@ -11,8 +11,12 @@
 
 import UIKit
 import Alamofire
+import CoreData
 
 class PhoneBookViewController: UIViewController {
+    
+//    // 이미지 데이터 프로퍼티 추가
+//    private var imageData: Data?
     
     // UI 요소 세팅: 프로필 이미지
     private var profileImageView: UIImageView = {
@@ -34,7 +38,7 @@ class PhoneBookViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.addTarget(self, action: #selector(randomButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-       return button
+        return button
     }()
     
     // UI 요소 세팅: 이름 텍스트뷰 생성
@@ -51,6 +55,7 @@ class PhoneBookViewController: UIViewController {
     // UI 요소 세팅: 전화번호 텍스트뷰 생성
     private var phoneNumberTextView: UITextView = {
         let textView = UITextView()
+        textView.font = UIFont.systemFont(ofSize: 16)
         textView.layer.cornerRadius = 10
         textView.layer.borderColor = UIColor.lightGray.cgColor
         textView.layer.borderWidth = 2.0
@@ -58,8 +63,8 @@ class PhoneBookViewController: UIViewController {
         return textView
     }()
     
-
-    
+    // CoreData context 가져오기
+    lazy var context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,50 +85,54 @@ class PhoneBookViewController: UIViewController {
          nameTextView,
          phoneNumberTextView].forEach { view.addSubview($0) }
         
-         configureUI()
-
+        configureUI()
+        
+        
     }
     
     @objc private func randomButtonTapped() {
-           fetchPokemonData()
-       }
-       
+        fetchPokemonData()
+    }
+    
     private func fetchPokemonData() {
-            let randomID = Int.random(in: 1...1000)  // 포켓몬 ID 범위는 1부터 1000까지
-            
-            AF.request("https://pokeapi.co/api/v2/pokemon/\(randomID)").responseDecodable(of: PokemonImageAPI.self) { response in
-                switch response.result {
-                case .success(let pokemonData):
-                    let imageUrlString = pokemonData.sprites.frontDefault
-                    guard let imageUrl = URL(string: imageUrlString) else {
-                        print("Invalid image URL")
-                        return
-                    }
-                    self.loadImage(from: imageUrl)
-                    
-                case .failure(let error):
-                    print("Error fetching pokemon data: \(error)")
-                }
-            }
-        }
+        let randomID = Int.random(in: 1...1000)  // 포켓몬 ID 범위는 1부터 1000까지
         
-        private func loadImage(from url: URL) {
-            AF.request(url).responseData { response in
-                switch response.result {
-                case .success(let imageData):
-                    if let image = UIImage(data: imageData) {
-                        DispatchQueue.main.async {
-                            self.profileImageView.image = image
-                        }
-                    } else {
-                        print("Invalid image data")
-                    }
-                    
-                case .failure(let error):
-                    print("Error loading image: \(error)")
+        AF.request("https://pokeapi.co/api/v2/pokemon/\(randomID)").responseDecodable(of: PokemonImageAPI.self) { response in
+            switch response.result {
+            case .success(let pokemonData):
+                let imageUrlString = pokemonData.sprites.frontDefault
+                guard let imageUrl = URL(string: imageUrlString) else {
+                    print("Invalid image URL")
+                    return
                 }
+                self.loadImage(from: imageUrl)
+                
+            case .failure(let error):
+                print("Error fetching pokemon data: \(error)")
             }
         }
+    }
+    
+
+    private func loadImage(from url: URL) {
+        AF.request(url).responseData { response in
+            switch response.result {
+            case .success(let imageData):
+                if let image = UIImage(data: imageData) {
+                    DispatchQueue.main.async {
+                        self.profileImageView.image = image
+                    }
+                } else {
+                    print("Invalid image data")
+                }
+                
+            case .failure(let error):
+                print("Error loading image: \(error)")
+            }
+        }
+    }
+    
+    
     
     private func configureUI() {
         
@@ -156,12 +165,52 @@ class PhoneBookViewController: UIViewController {
         
     }
     
+    // 적용 버튼을 탭했을 때 호출될 메서드
     @objc private func applyButtonTapped() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         
-        // 적용버튼 누를 시 홈화면으로 이동
-        navigationController?.popToRootViewController(animated: true)
+        let context = appDelegate.persistentContainer.viewContext
+        let newContact = PhoneBook(context: context)
+        
+        // 이름과 전화번호 입력 확인
+        guard let name = nameTextView.text, !name.isEmpty else {
+            print("Name is empty")
+            return
+        }
+        guard let phoneNumber = phoneNumberTextView.text, !phoneNumber.isEmpty else {
+            print("Phone number is empty")
+            return
+        }
+        
+        // 랜덤 이미지 생성 후 적용 시, 테이블뷰에 불러오는 코드
+        let image = profileImageView.image
+              
+        if let imageData = image?.pngData() {
+            newContact.image = imageData
+        }
+        
+        newContact.name = name
+        newContact.phoneNumber = phoneNumber
+        
+        
+        // CoreData에 저장
+        do {
+            try context.save()
+            print("Saved contact: \(newContact)")
+            
+            // 홈화면으로 이동
+            navigationController?.popToRootViewController(animated: true)
+            
+            // ViewController의 fetchContacts 호출하여 테이블뷰 업데이트
+            if let viewController = navigationController?.viewControllers.first as? ViewController {
+                viewController.fetchContacts()
+            }
+            
+        } catch {
+            print("Failed to save contact: \(error)")
+        }
     }
-
+    
 }
-
-
