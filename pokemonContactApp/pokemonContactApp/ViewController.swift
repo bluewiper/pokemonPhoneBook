@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
     
@@ -56,6 +57,7 @@ class ViewController: UIViewController {
         setTableViewDelegate()
     }
     
+    
     private func configurationUI() {
         
         // UI 요소 레이아웃
@@ -98,10 +100,6 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
-        // 임의의 수
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Info", for: indexPath) as? TableViewCell else {
@@ -113,5 +111,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.phoneNumberLabel.text = "010-1111-2222"
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 6
+        // 임의의 수
     }
 }

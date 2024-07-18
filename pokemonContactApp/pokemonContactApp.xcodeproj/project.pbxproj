@@ -17,6 +17,8 @@
 		23F8FDB42C466BDE00E235BC /* PhoneBook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8FDB22C466BDD00E235BC /* PhoneBook+CoreDataProperties.swift */; };
 		23F8FDB62C46A48400E235BC /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8FDB52C46A48400E235BC /* TableViewCell.swift */; };
 		23F8FDC02C47824B00E235BC /* PhoneBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8FDBF2C47824B00E235BC /* PhoneBookViewController.swift */; };
+		23F8FDC22C47C5F400E235BC /* pokemonImageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F8FDC12C47C5F400E235BC /* pokemonImageAPI.swift */; };
+		23F8FDC52C47CC3300E235BC /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 23F8FDC42C47CC3300E235BC /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,7 @@
 		23F8FDB22C466BDD00E235BC /* PhoneBook+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneBook+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		23F8FDB52C46A48400E235BC /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		23F8FDBF2C47824B00E235BC /* PhoneBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneBookViewController.swift; sourceTree = "<group>"; };
+		23F8FDC12C47C5F400E235BC /* pokemonImageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pokemonImageAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23F8FDC52C47CC3300E235BC /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +75,7 @@
 				23F8FDB52C46A48400E235BC /* TableViewCell.swift */,
 				23F8FDBF2C47824B00E235BC /* PhoneBookViewController.swift */,
 				23F8FDA12C46687000E235BC /* ViewController.swift */,
+				23F8FDC12C47C5F400E235BC /* pokemonImageAPI.swift */,
 				23F8FDA62C46687100E235BC /* Assets.xcassets */,
 				23F8FDA82C46687100E235BC /* LaunchScreen.storyboard */,
 				23F8FDAB2C46687100E235BC /* Info.plist */,
@@ -95,6 +100,9 @@
 			dependencies = (
 			);
 			name = pokemonContactApp;
+			packageProductDependencies = (
+				23F8FDC42C47CC3300E235BC /* Alamofire */,
+			);
 			productName = pokemonContactApp;
 			productReference = 23F8FD9A2C46687000E235BC /* pokemonContactApp.app */;
 			productType = "com.apple.product-type.application";
@@ -123,6 +131,9 @@
 				Base,
 			);
 			mainGroup = 23F8FD912C46687000E235BC;
+			packageReferences = (
+				23F8FDC32C47CC3300E235BC /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 23F8FD9B2C46687000E235BC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -152,6 +163,7 @@
 				23F8FDA52C46687000E235BC /* pokemonContactApp.xcdatamodeld in Sources */,
 				23F8FDA22C46687000E235BC /* ViewController.swift in Sources */,
 				23F8FD9E2C46687000E235BC /* AppDelegate.swift in Sources */,
+				23F8FDC22C47C5F400E235BC /* pokemonImageAPI.swift in Sources */,
 				23F8FDB32C466BDE00E235BC /* PhoneBook+CoreDataClass.swift in Sources */,
 				23F8FDC02C47824B00E235BC /* PhoneBookViewController.swift in Sources */,
 				23F8FDB42C466BDE00E235BC /* PhoneBook+CoreDataProperties.swift in Sources */,
@@ -367,6 +379,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		23F8FDC32C47CC3300E235BC /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		23F8FDC42C47CC3300E235BC /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23F8FDC32C47CC3300E235BC /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		23F8FDA32C46687000E235BC /* pokemonContactApp.xcdatamodeld */ = {
