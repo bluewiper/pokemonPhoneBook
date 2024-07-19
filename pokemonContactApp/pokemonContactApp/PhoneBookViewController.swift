@@ -15,9 +15,6 @@ import CoreData
 
 class PhoneBookViewController: UIViewController {
     
-//    // 이미지 데이터 프로퍼티 추가
-//    private var imageData: Data?
-    
     // UI 요소 세팅: 프로필 이미지
     private var profileImageView: UIImageView = {
         let imageView = UIImageView()
