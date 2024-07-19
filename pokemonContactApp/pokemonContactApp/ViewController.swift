@@ -60,6 +60,12 @@ class ViewController: UIViewController {
         fetchContacts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        contacts.sort { $0.name ?? "" < $1.name ?? "" }
+        contactTableView.reloadData()
+    }
+    
     private func configurationUI() {
         
         // UI 요소 레이아웃
@@ -151,7 +157,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         do {
             if let context = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
                 contacts = try context.fetch(fetchRequest)
-                contactTableView.reloadData()
+//                contactTableView.reloadData() reloadData는 viewWillAppear에서 정렬해주고 실행하도록 재설정
             }
         } catch {
             print("Error fetching contacts: \(error)")
